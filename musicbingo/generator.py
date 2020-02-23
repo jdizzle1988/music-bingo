@@ -20,7 +20,7 @@ import math
 import random
 import re
 import secrets
-from typing import Dict, List, Optional, Sequence, Set
+from typing import Dict, List, Optional, Sequence, Set, Tuple
 
 from musicbingo.assets import Assets
 from musicbingo.directory import Directory
@@ -41,7 +41,9 @@ from musicbingo.song import Duration, Metadata, Song
 class BingoTicket:
     """Represents a Bingo ticket with 15 songs"""
 
-    NUM_SONGS: int = 15
+    NUM_ROWS: int = 3
+    NUM_COLUMNS: int = 5
+    NUM_SONGS: int = NUM_ROWS * NUM_COLUMNS
 
     def __init__(self, palette: Palette, card_id: int = 0):
         self.palette = palette
@@ -52,7 +54,7 @@ class BingoTicket:
     def box_colour_style(self, col: int, row: int) -> Colour:
         """Get the background colour for a given bingo ticket"""
         if self.palette.colours:
-            colour = self.palette.colours[(col + row*5) %
+            colour = self.palette.colours[(col + row * self.NUM_COLUMNS) %
                                           len(self.palette.colours)]
         else:
             # if col & row are both even or both odd, use box_alternate_bg
@@ -62,7 +64,6 @@ class BingoTicket:
             else:
                 colour = self.palette.box_normal_bg
         return colour
-        #return ('BACKGROUND', (col, row), (col, row), colour)
 
 
 # pylint: disable=too-many-instance-attributes
@@ -335,7 +336,11 @@ class GameGenerator:
 
         pstyle = self.TEXT_STYLES['ticket-cell']
         data: List[DG.TableRow] = []
-        for start, end in ((0, 5), (5, 10), (10, 15)):
+        ranges: List[Tuple[int, int]] = []
+        for row_index in range(BingoTicket.NUM_ROWS):
+            ranges.append((row_index * BingoTicket.NUM_COLUMNS,
+                           (1 + row_index) * BingoTicket.NUM_COLUMNS))
+        for start, end in ranges:
             row: DG.TableRow = []
             for index in range(start, end):
                 items: List[DG.Paragraph] = [
@@ -357,14 +362,14 @@ class GameGenerator:
                             gridColour=Colour('black'),
                             gridWidth=0.5,
                             verticalAlignment=VerticalAlignment.CENTER)
-        col_widths: List[Dimension] = [column_width] * 5
+        col_widths: List[Dimension] = [column_width] * BingoTicket.NUM_COLUMNS
         table = DG.Table(
             data,
             colWidths=col_widths,
             rowHeights=(row_height, row_height, row_height),
             style=tstyle)
-        for box_row in range(0, 3):
-            for box_col in range(0, 5):
+        for box_row in range(0, BingoTicket.NUM_ROWS):
+            for box_col in range(0, BingoTicket.NUM_COLUMNS):
                 table.style_cells(
                     DG.CellPos(col=box_col, row=box_row),
                     DG.CellPos(col=box_col, row=box_row),
