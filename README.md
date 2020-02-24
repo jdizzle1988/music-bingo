@@ -3,9 +3,11 @@ with songs which the players must listen out for. This program allows
 users to generate their own games of Music Bingo using their own music
 clips.
 
-This is a fork of the original code, which is available here:
 
-    https://davidwhite478.github.io/portfolio/
+This is a fork of the code, which is available here:
+
+    https://github.com/asrashley/music-bingo
+    
 
 Installation
 ============
