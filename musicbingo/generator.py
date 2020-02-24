@@ -41,7 +41,7 @@ from musicbingo.song import Duration, Metadata, Song
 class BingoTicket:
     """Represents a Bingo ticket with 15 songs"""
 
-    NUM_ROWS: int = 3
+    NUM_ROWS: int = 5 #Increasing number from 3 to 5 rows for my usage
     NUM_COLUMNS: int = 5
     NUM_SONGS: int = NUM_ROWS * NUM_COLUMNS
 
