@@ -34,7 +34,7 @@ class Options(argparse.Namespace):
                  create_index: bool = False,
                  page_order: bool = True,
                  columns: int = 5,
-                 rows: int = 3
+                 rows: int = 5
                  ) -> None:
         super(Options, self).__init__()
         self.games_dest = games_dest
