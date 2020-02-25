@@ -109,18 +109,18 @@ class SongsPanel(Panel):
         self._num_songs = 0
         self._data = {}
 
-    def hide_song(self, song: Song, update: bool = True) -> None:
-        """
-        Hide one song from this panel.
-        @raises KeyError if song not in this panel
-        """
-        _ = self._data[song.ref_id]
-        self._hidden.add(song.ref_id)
-        self.tree.detach(str(song.ref_id))
-        self._duration -= int(song.duration)
-        self._num_songs -= 1
-        if update:
-            self._update_footer()
+#    def hide_song(self, song: Song, update: bool = True) -> None:
+#        """
+#        Hide one song from this panel.
+#        @raises KeyError if song not in this panel
+#        """
+#        _ = self._data[song.ref_id]
+#        self._hidden.add(song.ref_id)
+#        self.tree.detach(str(song.ref_id))
+#        self._duration -= int(song.duration)
+#        self._num_songs -= 1
+#        if update:
+#            self._update_footer()
 
     def restore_all(self) -> None:
         """Restores all hidden songs"""
