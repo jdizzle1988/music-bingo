@@ -237,7 +237,7 @@ class MainApp(ActionPanelCallbacks):
             ref_id = secrets.choice(ref_ids)
             ref_ids.remove(ref_id)
             song = songs[ref_id]
-            self.available_songs_panel.hide_song(song)
+            #self.available_songs_panel.hide_song(song)
             self.selected_songs_panel.add_song(song)
             todo -= 1
 
