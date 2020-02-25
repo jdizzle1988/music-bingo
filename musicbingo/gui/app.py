@@ -219,7 +219,7 @@ class MainApp(ActionPanelCallbacks):
         if selections is None:
             selections = self.available_songs_panel.selections(True)
         for song in selections:
-            self.available_songs_panel.hide_song(song)
+            #self.available_songs_panel.hide_song(song)
             self.selected_songs_panel.add_song(song)
 
     def add_random_songs_to_game(self, amount: int = 5) -> None:
